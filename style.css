@@ -40,6 +40,10 @@ li {
     width: 19.5%;
 }
 
+.full {
+    width: 100%;
+}
+
 .nodisplay {
     display: none;
 }

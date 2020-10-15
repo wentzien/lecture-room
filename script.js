@@ -7,6 +7,8 @@ const whiteboardAccessId = urlParams.get('wa');
 
 const room = document.getElementById("room");
 
+
+
 eventAccess();
 
 function eventAccess() {
@@ -71,6 +73,7 @@ function eventAccess() {
                 name="whiteboard"></iframe>
 
         <iframe class="iframe right"
+                id="questions"
                 src="${questionsUrl}"
                 name="question-app"></iframe>
     </div>
@@ -78,35 +81,87 @@ function eventAccess() {
     `;
 }
 
+let questionsDisplay = true;
 
 function changeDisplay(changeTo) {
+    const jitsy = {
+        htmlClass: document.getElementById("jitsi"),
+        htmlNavClass: document.getElementById("jitsi-nav"),
+        display: true,
+        full: false,
+    };
 
-    const jitsy = document.getElementById("jitsi");
-    const whiteboard = document.getElementById("whiteboard");
+    const whiteboard = {
+        htmlClass: document.getElementById("whiteboard"),
+        htmlNavClass: document.getElementById("whiteboard-nav"),
+        display: false,
+        full: false,
+    };
 
-    const jitsyNav = document.getElementById("jitsi-nav");
-    const whiteboardNav = document.getElementById("whiteboard-nav");
-    const questionsNav = document.getElementById("questions-nav");
+    const questions = {
+        htmlClass: document.getElementById("questions"),
+        htmlNavClass: document.getElementById("questions-nav"),
+        display: true
+    }
 
     switch (changeTo) {
         case "jitsi":
-            jitsy.className = "iframe left";
-            whiteboard.className = "iframe left nodisplay";
-
-            jitsyNav.className = "nav-item active";
-            whiteboardNav.className = "nav-item";
-            questionsNav.className = "nav-item";
+            jitsy.display = true;
+            whiteboard.display = false;
             break;
         case "whiteboard":
-            jitsy.className = "iframe left nodisplay";
-            whiteboard.className = "iframe left";
-
-            jitsyNav.className = "nav-item";
-            whiteboardNav.className = "nav-item active";
-            questionsNav.className = "nav-item";
+            jitsy.display = false;
+            whiteboard.display = true;
             break;
         case "questions":
-
+            if (questions.display) {
+                questions.display = false;
+                jitsy.full = true;
+                whiteboard.full = true;
+            } else {
+                questions.display = true;
+                jitsy.full = false;
+                whiteboard.full = false;
+            }
             break;
     }
+
+    jitsy.htmlClass.className = getClass(jitsy, "jitsi").htmlIframeClass;
+    jitsy.htmlNavClass.className = getClass(jitsy, "jitsi").htmlNavClass;
+    console.log(jitsy);
+
+    whiteboard.htmlClass.className = getClass(whiteboard, "whiteboard").htmlIframeClass;
+    whiteboard.htmlNavClass.className = getClass(whiteboard, "whiteboard").htmlNavClass;
+    console.log(whiteboard);
+
+    questions.htmlClass.className = getClass(questions, "questions").htmlIframeClass;
+    questions.htmlNavClass.className = getClass(questions, "questions").htmlNavClass;
+    console.log(questions);
+
+}
+
+function getClass(object, name) {
+    object.htmlIframeClass = "iframe";
+    object.htmlNavClass = "nav-item";
+    if (name === "jitsi" || name === "whiteboard") {
+        if (!object.display) {
+            object.htmlIframeClass = "nodisplay";
+            object.htmlNavClass = "nav-item";
+        } else if (object.full) {
+            object.htmlIframeClass = "iframe full";
+            object.htmlNavClass = "nav-item active";
+        } else {
+            object.htmlIframeClass = "iframe left";
+            object.htmlNavClass = "nav-item active";
+        }
+    } else {
+        if (!object.display) {
+            object.htmlIframeClass = "nodisplay";
+            object.htmlNavClass = "nav-item";
+        } else {
+            object.htmlIframeClass = "iframe right";
+            object.htmlNavClass = "nav-item active";
+        }
+    }
+    return object;
 }
