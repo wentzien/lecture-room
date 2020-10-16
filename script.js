@@ -7,6 +7,19 @@ const whiteboardAccessId = urlParams.get('wa');
 
 const room = document.getElementById("room");
 
+const jitsi = {
+    display: true,
+    full: false,
+};
+
+const whiteboard = {
+    display: false,
+    full: false,
+};
+
+const questions = {
+    display: true
+}
 
 
 eventAccess();
@@ -79,65 +92,55 @@ function eventAccess() {
     </div>
     
     `;
+
+    jitsi.iElement = document.getElementById("jitsi");
+    jitsi.navElement = document.getElementById("jitsi-nav");
+
+    whiteboard.iElement = document.getElementById("whiteboard");
+    whiteboard.navElement = document.getElementById("whiteboard-nav");
+
+    questions.iElement = document.getElementById("questions");
+    questions.navElement = document.getElementById("questions-nav");
+
 }
 
 let questionsDisplay = true;
 
 function changeDisplay(changeTo) {
-    const jitsy = {
-        htmlClass: document.getElementById("jitsi"),
-        htmlNavClass: document.getElementById("jitsi-nav"),
-        display: true,
-        full: false,
-    };
-
-    const whiteboard = {
-        htmlClass: document.getElementById("whiteboard"),
-        htmlNavClass: document.getElementById("whiteboard-nav"),
-        display: false,
-        full: false,
-    };
-
-    const questions = {
-        htmlClass: document.getElementById("questions"),
-        htmlNavClass: document.getElementById("questions-nav"),
-        display: true
-    }
 
     switch (changeTo) {
         case "jitsi":
-            jitsy.display = true;
+            jitsi.display = true;
             whiteboard.display = false;
             break;
         case "whiteboard":
-            jitsy.display = false;
+            jitsi.display = false;
             whiteboard.display = true;
             break;
         case "questions":
             if (questions.display) {
                 questions.display = false;
-                jitsy.full = true;
+                jitsi.full = true;
                 whiteboard.full = true;
             } else {
                 questions.display = true;
-                jitsy.full = false;
+                jitsi.full = false;
                 whiteboard.full = false;
             }
             break;
     }
 
-    jitsy.htmlClass.className = getClass(jitsy, "jitsi").htmlIframeClass;
-    jitsy.htmlNavClass.className = getClass(jitsy, "jitsi").htmlNavClass;
-    console.log(jitsy);
+    getClass(jitsi, "jitsi");
+    jitsi.iElement.className = jitsi.htmlIframeClass;
+    jitsi.navElement.className = jitsi.htmlNavClass;
 
-    whiteboard.htmlClass.className = getClass(whiteboard, "whiteboard").htmlIframeClass;
-    whiteboard.htmlNavClass.className = getClass(whiteboard, "whiteboard").htmlNavClass;
-    console.log(whiteboard);
+    getClass(whiteboard, "whiteboard");
+    whiteboard.iElement.className = whiteboard.htmlIframeClass;
+    whiteboard.navElement.className = whiteboard.htmlNavClass;
 
-    questions.htmlClass.className = getClass(questions, "questions").htmlIframeClass;
-    questions.htmlNavClass.className = getClass(questions, "questions").htmlNavClass;
-    console.log(questions);
-
+    getClass(questions, "questions");
+    questions.iElement.className = questions.htmlIframeClass;
+    questions.navElement.className = questions.htmlNavClass;
 }
 
 function getClass(object, name) {
