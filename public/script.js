@@ -25,12 +25,12 @@ const questions = {
 eventAccess();
 
 function eventAccess() {
-    if (jitsiEventId && questionsEventId && questionsCreatorId && whiteboardEventId && whiteboardAccessId) {
+    if (jitsiEventId && questionsEventId && questionsCreatorId && whiteboardEventId) {
 
         // Creator / Moderator
         jitsiUrl = "https://volz.hs-pforzheim.de/" + jitsiEventId;
         questionsUrl = "https://volz.hs-pforzheim.de/questions/events/" + questionsEventId + "/" + questionsCreatorId;
-        whiteboardUrl = "https://volz.hs-pforzheim.de/whiteboard/?whiteboardid=" + whiteboardEventId + "&accesstoken=" + whiteboardAccessId;
+        whiteboardUrl = "https://volz.hs-pforzheim.de/whiteboard/?whiteboardid=" + whiteboardEventId;
 
     } else if (jitsiEventId && questionsEventId && whiteboardEventId) {
 
