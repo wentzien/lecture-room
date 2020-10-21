@@ -28,14 +28,14 @@ function eventAccess() {
     if (jitsiEventId && questionsEventId && questionsCreatorId && whiteboardEventId) {
 
         // Creator / Moderator
-        jitsiUrl = "https://volz.hs-pforzheim.de/" + jitsiEventId + "#config.enableLocalVideoFlip=true";
+        jitsiUrl = "https://volz.hs-pforzheim.de/" + jitsiEventId + "#config.startAudioMuted=true&config.enableLocalVideoFlip=true";
         questionsUrl = "https://volz.hs-pforzheim.de/questions/events/" + questionsEventId + "/" + questionsCreatorId;
         whiteboardUrl = "https://volz.hs-pforzheim.de/whiteboard/?whiteboardid=" + whiteboardEventId;
 
     } else if (jitsiEventId && questionsEventId && whiteboardEventId) {
 
         // Viewer
-        jitsiUrl = "https://volz.hs-pforzheim.de/" + jitsiEventId + "#config.enableLocalVideoFlip=true";
+        jitsiUrl = "https://volz.hs-pforzheim.de/" + jitsiEventId + "#config.startAudioMuted=true&config.enableLocalVideoFlip=true";
         questionsUrl = "https://volz.hs-pforzheim.de/questions/events/" + questionsEventId;
         whiteboardUrl = "https://volz.hs-pforzheim.de/whiteboard/?whiteboardid=" + whiteboardEventId;
 
